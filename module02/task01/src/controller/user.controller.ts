@@ -1,19 +1,28 @@
 import { v4 as uuid } from "uuid";
 import { Request, Response } from "express";
 import { users } from "../db/users.db";
+import Joi from "joi";
 
-type CreateUserRequest = {
-  login: string;
-  password: string;
-  age: number;
-  isDeleted?: boolean;
-};
+import { ContainerTypes, ValidatedRequest, ValidatedRequestSchema } from "express-joi-validation";
 
-type UpdateUserRequest = CreateUserRequest & { id: string };
+interface CreateUserRequest extends ValidatedRequestSchema {
+  [ContainerTypes.Body]: {
+    login: string;
+    password: string;
+    age: number;
+    isDeleted?: boolean;
+  };
+}
 
-type DeleteUserRequest = {
-  id: string;
-};
+interface UpdateUserRequest extends CreateUserRequest {
+  [ContainerTypes.Body]: {
+    id: string;
+    login: string;
+    password: string;
+    age: number;
+    isDeleted?: boolean;
+  };
+}
 
 export function getUsers(_: Request, response: Response) {
   response.json(users.filter((user) => !user.isDeleted));
@@ -30,7 +39,7 @@ export function getUserById(request: Request, response: Response) {
   response.json(user);
 }
 
-export function createUser(request: Request<never, never, CreateUserRequest, never>, response: Response) {
+export function createUser(request: ValidatedRequest<CreateUserRequest>, response: Response) {
   const createUserReq = request.body;
   const user: User = {
     id: uuid(),
@@ -40,7 +49,7 @@ export function createUser(request: Request<never, never, CreateUserRequest, nev
   response.status(201).json(user);
 }
 
-export function updateUser(request: Request<never, never, UpdateUserRequest, never>, response: Response) {
+export function updateUser(request: ValidatedRequest<UpdateUserRequest>, response: Response) {
   const updateUserRequest = request.body;
   console.log(updateUserRequest);
   const index = users.findIndex((user) => updateUserRequest.id === user.id);
