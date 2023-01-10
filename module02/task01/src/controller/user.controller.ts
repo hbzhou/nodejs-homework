@@ -72,3 +72,13 @@ export function deleteUser(request: Request, response: Response) {
   users[index].isDeleted = true;
   return response.sendStatus(200);
 }
+
+export function getAutoSuggestUsers(request: Request, response: Response) {
+  const loginSubStr = request.query.loginSubStr as string;
+  const limit = parseInt(request.query.limit as string);
+  const result = users
+    .filter((user) => user.login.indexOf(loginSubStr) > -1)
+    .sort((user1, user2) => user1.login.localeCompare(user2.login))
+    .splice(0, limit);
+  return response.status(200).json(result);
+}
