@@ -9,7 +9,7 @@ const validator = createValidator();
 const router: Router = express.Router();
 
 router.get("/", getUsers);
-router.get("/getAutoSuggestUsers", getAutoSuggestUsers);
+router.get("/suggest", getAutoSuggestUsers);
 router.get("/:id", getUserById);
 router.post("/", validator.body(createUserSchema), createUser);
 router.put("/", validator.body(updateUserSchema), updateUser);
