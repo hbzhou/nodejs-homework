@@ -11,7 +11,7 @@ export const createUserSchema = Joi.object({
 });
 
 export const updateUserSchema = Joi.object({
-  id: Joi.string().required(),
+  id: Joi.number().required(),
   login: Joi.string().required(),
   password: Joi.string()
     .regex(new RegExp("^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$"))
