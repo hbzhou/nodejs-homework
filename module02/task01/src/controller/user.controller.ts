@@ -1,8 +1,7 @@
-import { v4 as uuid } from "uuid";
 import { Request, Response } from "express";
+import { v4 as uuid } from "uuid";
 import { users } from "../db/users.db";
-import Joi from "joi";
-
+import { save } from "../data-access/user.repository";
 import { ContainerTypes, ValidatedRequest, ValidatedRequestSchema } from "express-joi-validation";
 
 interface CreateUserRequest extends ValidatedRequestSchema {
@@ -45,8 +44,7 @@ export function createUser(request: ValidatedRequest<CreateUserRequest>, respons
     id: uuid(),
     ...createUserReq,
   };
-  users.push(user);
-  response.status(201).json(user);
+  response.status(201).json(save(user));
 }
 
 export function updateUser(request: ValidatedRequest<UpdateUserRequest>, response: Response) {
