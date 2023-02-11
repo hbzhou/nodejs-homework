@@ -1,7 +1,15 @@
 import { CreationOptional, DataTypes, InferAttributes, InferCreationAttributes, Model, Sequelize } from "sequelize";
 import { users } from "../constants/users";
 
-const sequelize = new Sequelize("postgres://jeremy:123456@localhost:5432/jeremy");
+const sequelize = new Sequelize("jeremy", "jeremy", "123456", {
+  host: "localhost:5432",
+  dialect: "postgres",
+  pool: {
+    max: 5,
+    min: 0,
+    idle: 10000,
+  },
+});
 
 class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   declare id: CreationOptional<number>;
