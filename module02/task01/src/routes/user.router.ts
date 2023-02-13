@@ -1,4 +1,4 @@
-import express, { Router, Request, Response } from "express";
+import express, { Router } from "express";
 import { createUser, deleteUser, getAutoSuggestUsers, getUserById, getUsers, updateUser } from "../controller/user.controller";
 
 import { createValidator } from "express-joi-validation";

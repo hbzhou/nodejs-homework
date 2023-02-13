@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { ContainerTypes, ValidatedRequest, ValidatedRequestSchema } from "express-joi-validation";
 import { findAll, findById, queryBy, save } from "../data-access/user.repository";
-import User from "../models/user.model";
+import { User } from "../models/user.model";
 
 interface CreateUserRequest extends ValidatedRequestSchema {
   [ContainerTypes.Body]: {
