@@ -1,6 +1,6 @@
 import { CreationOptional, DataTypes, InferAttributes, InferCreationAttributes, Model } from "sequelize";
 import { users } from "../constants/users";
-import { sequelize } from "../db/sequelize";
+import { sequelize } from "../sequelize/sequelize";
 
 export class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   declare id: CreationOptional<number>;
@@ -46,7 +46,6 @@ User.init(
   try {
     await User.sync({ force: true });
     await User.bulkCreate(users);
-    console.log("The table for the User model was just (re)created!");
   } catch (error) {
     console.error("Unable to connect to the database:", error);
   }

@@ -1,5 +1,3 @@
-import User from "../models/user.model";
-
 export const users = [
   {
     id: 9999,

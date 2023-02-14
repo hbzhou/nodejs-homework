@@ -1,10 +1,10 @@
 import { CreationOptional, DataTypes, InferAttributes, InferCreationAttributes, Model } from "sequelize";
-import { sequelize } from "../db/sequelize";
+import { sequelize } from "../sequelize/sequelize";
 
 type Permission = "READ" | "WRITE" | "DELETE" | "SHARE" | "UPLOAD_FILES";
 
 export class Group extends Model<InferAttributes<Group>, InferCreationAttributes<Group>> {
-  declare id: CreationOptional<String>;
+  declare id: CreationOptional<string>;
   declare name: string;
   declare permissions: Array<Permission>;
 }
@@ -34,7 +34,7 @@ Group.init(
 (async () => {
   try {
     await Group.sync({ force: true });
-    console.log("The table for the Group model was just (re)created!");
+    console.log("Connection has been established successfully.");
   } catch (error) {
     console.error("Unable to connect to the database:", error);
   }
