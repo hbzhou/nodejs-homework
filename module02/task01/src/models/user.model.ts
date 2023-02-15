@@ -1,9 +1,16 @@
-import { Sequelize, DataTypes } from "sequelize";
+import { CreationOptional, DataTypes, InferAttributes, InferCreationAttributes, Model } from "sequelize";
+import { users } from "../constants/users";
+import { sequelize } from "../sequelize/sequelize";
 
-const sequelize = new Sequelize("postgres://jeremy:123456@localhost:5432/jeremy");
+export class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
+  declare id: CreationOptional<number>;
+  declare login: string;
+  declare password: string;
+  declare age: number;
+  declare isDeleted?: boolean;
+}
 
-const User = sequelize.define(
-  "Users",
+User.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -30,22 +37,16 @@ const User = sequelize.define(
     },
   },
   {
+    sequelize: sequelize,
     tableName: "users",
-    timestamps: false,
   }
 );
 
-// (async () => {
-//   try {
-//     await sequelize.authenticate();
-//     await User.sync({ force: true });
-//     console.log("The table for the User model was just (re)created!");
-//     console.log("Connection has been established successfully.");
-//   } catch (error) {
-//     console.error("Unable to connect to the database:", error);
-//   } finally {
-//     sequelize.close();
-//   }
-// })();
-
-export default User;
+(async () => {
+  try {
+    await User.sync({ force: true });
+    await User.bulkCreate(users);
+  } catch (error) {
+    console.error("Unable to connect to the database:", error);
+  }
+})();
