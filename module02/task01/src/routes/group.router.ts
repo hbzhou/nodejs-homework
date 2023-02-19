@@ -7,6 +7,6 @@ router.get("/", getGroups);
 router.get("/:id", getGroupById);
 router.post("/", createGroup);
 router.put("/", updateGroup);
-router.delete("/", deleteGroup);
+router.delete("/:id", deleteGroup);
 
 export default router;

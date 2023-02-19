@@ -37,5 +37,5 @@ export async function deleteGroup(request: Request, response: Response) {
     throw new Error("Group Not Found");
   }
   await group.destroy();
-  response.status(201);
+  response.sendStatus(200);
 }

@@ -1,4 +1,4 @@
-import { CreationOptional, DataTypes, InferAttributes, InferCreationAttributes, Model } from "sequelize";
+import { CreationOptional, DataTypes, InferAttributes, InferCreationAttributes, Model, Sequelize } from "sequelize";
 import { sequelize } from "../sequelize/sequelize";
 
 type Permission = "READ" | "WRITE" | "DELETE" | "SHARE" | "UPLOAD_FILES";
@@ -12,7 +12,8 @@ export class Group extends Model<InferAttributes<Group>, InferCreationAttributes
 Group.init(
   {
     id: {
-      type: DataTypes.STRING,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
       allowNull: false,
     },
