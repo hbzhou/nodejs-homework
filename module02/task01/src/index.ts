@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 
 import userRouter from "./routes/user.router";
 import groupRouter from "./routes/group.router";
+import userGroupRouter from "./routes/userGroup.router";
 
 dotenv.config();
 
@@ -12,6 +13,7 @@ const port = process.env.PORT;
 app.use(json());
 app.use("/users", userRouter);
 app.use("/groups", groupRouter);
+app.use("/userGroups", userGroupRouter);
 
 app.get("/", (_: Request, response: Response) => {
   response.send("hello, express server ....");
