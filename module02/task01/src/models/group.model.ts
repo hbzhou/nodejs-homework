@@ -1,7 +1,6 @@
-import { CreationOptional, DataTypes, InferAttributes, InferCreationAttributes, Model, Sequelize } from "sequelize";
+import { CreationOptional, DataTypes, InferAttributes, InferCreationAttributes, Model } from "sequelize";
 import { sequelize } from "../sequelize/sequelize";
 import { User } from "./user.model";
-import { UserGroup } from "./userGroup.model";
 
 type Permission = "READ" | "WRITE" | "DELETE" | "SHARE" | "UPLOAD_FILES";
 
@@ -34,13 +33,11 @@ Group.init(
   }
 );
 
-// Group.belongsToMany(User, { through: "user_group", foreignKey: "groupId" });
-
-// (async () => {
-//   try {
-//     await Group.sync({ force: true });
-//     console.log("Connection has been established successfully.");
-//   } catch (error) {
-//     console.error("Unable to connect to the database:", error);
-//   }
-// })();
+(async () => {
+  try {
+    await Group.sync({ force: true });
+    console.log("Connection has been established successfully.");
+  } catch (error) {
+    console.error("Unable to connect to the database:", error);
+  }
+})();

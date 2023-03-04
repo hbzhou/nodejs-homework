@@ -45,13 +45,14 @@ User.init(
   }
 );
 
-// User.belongsToMany(Group, { through: UserGroup, foreignKey: "userId" });
+User.belongsToMany(Group, { through: "UserGroup" });
+Group.belongsToMany(User, { through: "UserGroup" });
 
-// (async () => {
-//   try {
-//     await User.sync({ force: true });
-//     await User.bulkCreate(users);
-//   } catch (error) {
-//     console.error("Unable to connect to the database:", error);
-//   }
-// })();
+(async () => {
+  try {
+    await User.sync({ force: true });
+    await User.bulkCreate(users);
+  } catch (error) {
+    console.error("Unable to connect to the database:", error);
+  }
+})();

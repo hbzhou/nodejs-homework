@@ -19,31 +19,20 @@ UserGroup.init(
     userId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      references: {
-        model: User,
-        key: "UserId",
-      },
     },
     groupId: {
       type: DataTypes.UUID,
       allowNull: false,
-      references: {
-        model: Group,
-        key: "GroupId",
-      },
     },
   },
   { sequelize, tableName: "user_group" }
 );
 
-UserGroup.belongsTo(User, { foreignKey: "UserId" });
-UserGroup.belongsTo(Group, { foreignKey: "GroupId" });
-
-// (async () => {
-//   try {
-//     await UserGroup.sync({ force: true });
-//     console.log("Connection has been established successfully.");
-//   } catch (error) {
-//     console.error("Unable to connect to the database:", error);
-//   }
-// })();
+(async () => {
+  try {
+    await UserGroup.sync({ force: true });
+    console.log("Connection has been established successfully.");
+  } catch (error) {
+    console.error("Unable to connect to the database:", error);
+  }
+})();
