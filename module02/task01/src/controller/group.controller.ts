@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { create, findAll, findById } from "../data-access/group.repository";
+import { deleteByGroupId } from "../data-access/userGroup.repository";
 import { Group } from "../models/group.model";
 
 export async function getGroups(_: Request, response: Response) {
@@ -36,6 +37,7 @@ export async function deleteGroup(request: Request, response: Response) {
   if (!group) {
     throw new Error("Group Not Found");
   }
+  await deleteByGroupId(group.id);
   await group.destroy();
   response.sendStatus(200);
 }

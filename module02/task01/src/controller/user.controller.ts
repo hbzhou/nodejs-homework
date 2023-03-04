@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { ContainerTypes, ValidatedRequest, ValidatedRequestSchema } from "express-joi-validation";
 import { findAll, findById, queryBy, save } from "../data-access/user.repository";
+import { deleteByUserId } from "../data-access/userGroup.repository";
 import { User } from "../models/user.model";
 
 interface CreateUserRequest extends ValidatedRequestSchema {
@@ -66,7 +67,9 @@ export async function deleteUser(request: Request, response: Response) {
     throw new Error("user not found");
   }
   user.isDeleted = true;
-  return response.status(200).json(await user.save());
+  const deletedUser = await user.save();
+  await deleteByUserId(deletedUser.id);
+  return response.status(200).json(deletedUser);
 }
 
 export async function getAutoSuggestUsers(request: Request, response: Response) {

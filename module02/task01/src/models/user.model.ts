@@ -45,13 +45,14 @@ User.init(
   }
 );
 
-User.belongsToMany(Group, { through: "UserGroup" });
-Group.belongsToMany(User, { through: "UserGroup" });
-
+/**
+ * comments it after schema sync finished
+ */
 (async () => {
   try {
     await User.sync({ force: true });
     await User.bulkCreate(users);
+    User.belongsToMany(Group, { through: "UserGroup" });
   } catch (error) {
     console.error("Unable to connect to the database:", error);
   }
