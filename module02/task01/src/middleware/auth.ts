@@ -1,8 +1,9 @@
 import { NextFunction, Request, Response } from "express";
 import Jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+dotenv.config();
 
 export function checkToken(request: Request, response: Response, next: NextFunction) {
-  console.log(request.path);
   if (request.path === "/login") {
     return next();
   }
@@ -11,7 +12,8 @@ export function checkToken(request: Request, response: Response, next: NextFunct
     return response.status(401).send("Unauthorized");
   }
   try {
-    Jwt.verify(token, "secret");
+    const secret = process.env.JWT_SECRET as string;
+    Jwt.verify(token, secret);
   } catch (error) {
     return response.status(403).send("Invalid Token");
   }

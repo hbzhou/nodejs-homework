@@ -15,6 +15,7 @@ export async function login(request: Request<null, null, LoginReqDto, null>, res
       message: "Bad username/password combination.",
     });
   }
-  const token = Jwt.sign({ ...reqDto }, "secret", { expiresIn: "2h" });
+  const secret = process.env.JWT_SECRET as string;
+  const token = Jwt.sign({ ...reqDto }, secret, { expiresIn: "2h" });
   return response.status(200).json(token);
 }
