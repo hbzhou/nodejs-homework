@@ -1,8 +1,9 @@
 import { NextFunction, Request, Response } from "express";
 import Jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+dotenv.config();
 
 export function checkToken(request: Request, response: Response, next: NextFunction) {
-  console.log(request.path);
   if (request.path === "/login") {
     return next();
   }
