@@ -11,7 +11,7 @@ export function checkToken(request: Request, response: Response, next: NextFunct
     return response.status(401).send("Unauthorized");
   }
   try {
-    Jwt.verify(token, "secret");
+    Jwt.verify(token, process.env.JWT_SECRET as string);
   } catch (error) {
     return response.status(403).send("Invalid Token");
   }
