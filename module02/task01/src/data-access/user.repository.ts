@@ -24,3 +24,12 @@ export async function queryBy(loginStr: string, limit: number) {
     order: [["login", "DESC"]],
   });
 }
+
+export async function findByLogin(login: string) {
+  return User.findOne({
+    where: {
+      login: login,
+      isDeleted: false,
+    },
+  });
+}
