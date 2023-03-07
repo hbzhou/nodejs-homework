@@ -37,12 +37,12 @@ Group.init(
  * comments it after schema sync finished
  */
 
-(async () => {
-  try {
-    await Group.sync({ force: true });
-    Group.belongsToMany(User, { through: "UserGroup" });
-    console.log("Connection has been established successfully.");
-  } catch (error) {
-    console.error("Unable to connect to the database:", error);
-  }
-})();
+// (async () => {
+//   try {
+//     await Group.sync({ force: true });
+//     Group.belongsToMany(User, { through: "UserGroup" });
+//     console.log("Connection has been established successfully.");
+//   } catch (error) {
+//     console.error("Unable to connect to the database:", error);
+//   }
+// })();
