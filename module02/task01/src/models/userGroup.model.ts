@@ -28,11 +28,11 @@ UserGroup.init(
   { sequelize, tableName: "user_group" }
 );
 
-(async () => {
-  try {
-    await UserGroup.sync({ force: true });
-    console.log("Connection has been established successfully.");
-  } catch (error) {
-    console.error("Unable to connect to the database:", error);
-  }
-})();
+// (async () => {
+//   try {
+//     await UserGroup.sync({ force: true });
+//     console.log("Connection has been established successfully.");
+//   } catch (error) {
+//     console.error("Unable to connect to the database:", error);
+//   }
+// })();
